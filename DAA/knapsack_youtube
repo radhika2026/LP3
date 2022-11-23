@@ -1,0 +1,22 @@
+def knapsack(W, weight, value):
+  ratio = []
+  for i in range(0, len(weight)):
+    ratio.append(value[i]/weight[i])
+  n = len(weight)
+  index = list(range(n))
+  index.sort(key = lambda i: ratio[i], reverse = True)
+  print(index)
+  max_value = 0
+  fraction = [0]*n
+  for i in index:
+    if weight[i] <= W:
+      max_value += value[i]
+      W -= weight[i]
+      fraction[i] = 1
+    else:
+      fraction[i] = W/weight[i]
+      max_value += fraction[i]*value[i]
+      break
+  return max_value
+
+print(knapsack(60, [10,20,50], [100, 400, 120]))

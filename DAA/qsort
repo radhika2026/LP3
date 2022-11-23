@@ -1,0 +1,28 @@
+import random
+def pivot_place(num, first, last):
+  pivot = num[first]
+  left = first + 1
+  right = last
+  while True:
+    while left <= right and num[left] <= pivot:
+      left += 1
+    while left <= right and num[right] >= pivot:
+      right -= 1
+    if right < left:
+      break
+    else:
+      num[left], num[right] = num[right], num[left]
+  num[right], num[first] = num[first], num[right]
+  return right
+
+def quicksort(num, first, last):
+  if first < last:
+    randpivot = random.randrange(first, last)
+    num[first], num[randpivot] = num[randpivot], num[first]
+    randpivot = first
+    p = pivot_place(num, randpivot, last)
+    quicksort(num, first, p-1)
+    quicksort(num, p+1, last)
+num = [56,26,93,17,31,44]
+quicksort(num, 0, 5)
+print(num)
